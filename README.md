@@ -20,6 +20,7 @@ Further acticles about this issue:
 # Installation
 This is a dotnet-tool. This project can be installed by:
 
+## As a dotnet tool
 if you dont have a manifest for tools yet
 
 - dotnet new tool-manifest
@@ -28,6 +29,8 @@ followed by
 
 - dotnet tool install PineMigration
 
+## As portable executable
+Simply use the newest executable provided under [Releases](https://github.com/Witteborn/PineMigration-DotNet/releases) or checkout our master and build it yourself.
 
 # Usage
 Simply use
