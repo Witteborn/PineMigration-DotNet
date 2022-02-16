@@ -1,44 +1,52 @@
 
-![screenshot](Assets/Images/Logo.png)
+![image](https://user-images.githubusercontent.com/27786664/154346980-c3248615-09a4-4d15-9cbc-86677df1ac52.png)
 
 # Description
-Creating and maintaining a project aint easy. I found myself setting up multiple projects wit a similar structure until I made use of GitHub-Templates. Setting up a project should take no more than a few minutes max and come with all features a modern project needs. I used this template a lot privately until some friends asked me to publish it. So here it is free to use under the MIT-License.
+This project aims towards fixing the "Project is not eligable for migration" issue in Visual Studio IDE for C# DotNet projects.
+This tool works even tho Microsofts inhouse tool is not able to migrate your project.
 
-If you like this project please star it and share it with others.
+Further acticles about this issue:
 
-<!--
-# Screenshots
+[Microsoft Documentation](https://docs.microsoft.com/en-us/nuget/consume-packages/migrate-packages-config-to-package-reference)
 
-<p align="center">
-  <img src="https://Screenshot.png">
-</p>
--->
+[Official Issue - Closed: Low Priority](https://developercommunity.visualstudio.com/t/migrate-packagesconfig-to-packagereference-not-ava/246759)
+
+[GitHub Issue explaining the problem](https://github.com/NuGet/docs.microsoft.com-nuget/issues/860)
 
 # Features
-- Easy to build uppon DevOps workflows
-- Automated Release drafts with changelogs based on issues thanks to [GitReleaseManager](https://github.com/GitTools/GitReleaseManager)
-- A great variety of issue templates
-- A Pull request template
-- A README file with all you need
-- Automated Semantic Versioning thanks to [GitVersion](https://github.com/GitTools/GitVersion)
-- A [funding file](./FUNDING.md) to easily enable sponsorships in your repository
+- Automated migration from package.config to PackageReferences
 
 
 # Installation
-Click on "Use Template" to create a repository based on this one.
-The new repository will contain all files and therefor all workflows, templates and assets.
+This is a dotnet-tool. This project can be installed by:
 
-It is recommended to update the .gitignore based on your project you will use this for.
+if you dont have a manifest for tools yet
 
-Dont forget to change the LICENSE.
+- dotnet new tool-manifest
 
-Unfortunately GitHub does not yet offer the possibility to transfer labels automatically, so if you want to use the same ones then please transfer them manually from [here](https://github.com/Witteborn/GitHubBoilerplate/labels)
+followed by
+
+- dotnet tool install PineMigration
+
 
 # Usage
-Using this template is fairly trivial.
-You might want to know about how to use certain modules/features of this template.
+Simply use
+- dotnet tool run PineMigration
 
-For more information on how to use GitReleaseManager please checkout their [documentation](https://gittools.github.io/GitReleaseManager/docs/).
+or
+
+- dotnet PineMigration
+
+[Microsoft Documentation on how to use a dotnet tool](https://docs.microsoft.com/de-de/dotnet/core/tools/global-tools)
+
+# How it works
+
+It is recommended to backup your project before using it just in case something unexpected happens.
+
+The tool will automatically detect your csproj files and their package.config's and automatically migrate.
+
+PineMigration reads the content of your package.config and extracts information such as the name and version of each NuGet package and writes it into the needed PackageReference format. It will then find your csproj file and paste the result at end of you file right before closing "Project" element.
+
 
 # Contribution
 Pull request are very welcome, please open an issue in advance.
