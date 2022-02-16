@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,44 +11,66 @@ namespace PineMigration
     {
         public static void Main()
         {
+            SetupLogger();
 
-            //find and read package config
-            var packageConfig_content = GetPackageConfigContent();
+            try
+            {
 
-            //make sure csproj can be found
-            var csprojPath = GetCSProjectFile();
+                //find and read package config
+                var packageConfig_content = GetPackageConfigContent();
 
-            //run algorithm on package config content
-            var itemGroup = ConfigToReferences(packageConfig_content);
+                //make sure csproj can be found
+                var csprojPath = GetCSProjectFile();
 
-            //enhance csproj content
-            var csprojContent = GetEnhancedCsProject(csprojPath, itemGroup);
+                //run algorithm on package config content
+                var itemGroup = ConfigToReferences(packageConfig_content);
 
-            //write result into csproj file
-            File.WriteAllLines(csprojPath, csprojContent);
+                //enhance csproj content
+                var csprojContent = GetEnhancedCsProject(csprojPath, itemGroup);
+
+                //write result into csproj file
+                Log.Information("Overwriting {@csprojPath}", csprojPath);
+                File.WriteAllLines(csprojPath, csprojContent);
+                Log.Information("Program executed sucessfully!");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Exception: {ex.Message}", ex);
+            }
+        }
+
+        private static void SetupLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .WriteTo.File("logs\\PineMigration.log", rollingInterval: RollingInterval.Minute)
+            .CreateLogger();
         }
 
         private static string GetPackageConfigContent()
         {
             var currDir = Directory.GetCurrentDirectory();
-            var configPath = Path.Combine(currDir, "packages.config");
+            var filename = "packages.config";
+            var path = Path.Combine(currDir, filename);
 
-            if (File.Exists(configPath) == false)
+            if (File.Exists(path) == false)
             {
-                throw new FileNotFoundException($"{configPath} was expected and could not be found");
+                throw new FileNotFoundException($"{path} was expected and could not be found");
             }
-
-            return File.ReadAllText(configPath);
+            Log.Information("File {@filename} found at {@path}", filename, path);
+            return File.ReadAllText(path);
         }
         private static string GetCSProjectFile()
         {
             var currDir = Directory.GetCurrentDirectory();
             var csproj = Directory.GetFiles(currDir).First(f => new FileInfo(f).Extension == ".csproj");
-
+            var filename = new FileInfo(csproj).Name;
             if (string.IsNullOrWhiteSpace(csproj))
             {
                 throw new FileNotFoundException($"A *.csproj file could not be found in {currDir}");
             }
+            Log.Information("File {@filename} found at {@csproj}", filename, csproj);
 
             return csproj;
         }
@@ -77,10 +100,11 @@ namespace PineMigration
         private static string[] GetEnhancedCsProject(string path, string[] itemGroup)
         {
             var csprojContent = File.ReadAllLines(path).ToList();
+            Log.Information("File {@path} content read successfully", path);
 
             var endIndex = csprojContent.IndexOf("</Project>");
             csprojContent.InsertRange(endIndex, itemGroup);
-
+            Log.Information("Prepares insert of new ItemGroup at line {@endIndex}", endIndex);
             return csprojContent.ToArray();
         }
 

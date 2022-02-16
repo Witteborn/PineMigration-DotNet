@@ -8,11 +8,20 @@
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>PineMigration</ToolCommandName>
 		<PackageOutputPath>./nupkg</PackageOutputPath>
+		<Authors>Witteborn</Authors>
+		<Description>This DotNet-Tool fixes the "project is not eligable for migration" issue </Description>
+		<PackageProjectUrl>https://github.com/Witteborn/PineMigration-DotNet</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/Witteborn/PineMigration-DotNet</RepositoryUrl>
+		<PackageTags>tool; migration; issue; packages.config; packackereferences;</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="logs\**" />
 		<Compile Remove="nupkg\**" />
+		<EmbeddedResource Remove="logs\**" />
 		<EmbeddedResource Remove="nupkg\**" />
+		<None Remove="logs\**" />
 		<None Remove="nupkg\**" />
 	</ItemGroup>
 
@@ -21,6 +30,9 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Serilog" Version="2.10.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 	</ItemGroup>
 
 </Project>
