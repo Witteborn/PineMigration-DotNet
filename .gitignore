@@ -3,6 +3,8 @@
 /.vs/
 */nupkg/
 *.nupkg
+/.config/*
+/artifacts/*
 
 
 ## Ignore Visual Studio temporary files, build results, and

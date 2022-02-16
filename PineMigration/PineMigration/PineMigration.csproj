@@ -11,7 +11,6 @@
 		<Authors>Witteborn</Authors>
 		<Description>This DotNet-Tool fixes the "project is not eligable for migration" issue </Description>
 		<PackageProjectUrl>https://github.com/Witteborn/PineMigration-DotNet</PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/Witteborn/PineMigration-DotNet</RepositoryUrl>
 		<PackageTags>tool; migration; issue; packages.config; packackereferences;</PackageTags>
 	</PropertyGroup>
