@@ -8,12 +8,26 @@
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>PineMigration</ToolCommandName>
 		<PackageOutputPath>./nupkg</PackageOutputPath>
-		<Authors>Witteborn</Authors>
-		<Description>This DotNet-Tool fixes the "project is not eligable for migration" issue </Description>
+		<Authors>Gökhan Witteborn-Demir</Authors>
+		<Description>This dotnet-tool helps fixing the "project is not eligable for migration" issue </Description>
 		<PackageProjectUrl>https://github.com/Witteborn/PineMigration-DotNet</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Witteborn/PineMigration-DotNet</RepositoryUrl>
 		<PackageTags>tool; migration; issue; packages.config; packackereferences;</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>Gökhan Witteborn-Demir</Copyright>
+
 	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../LICENSE.md" Pack="true" PackagePath="LICENSE.md"/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="logs\**" />
@@ -22,6 +36,13 @@
 		<EmbeddedResource Remove="nupkg\**" />
 		<None Remove="logs\**" />
 		<None Remove="nupkg\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
