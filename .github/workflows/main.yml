@@ -29,7 +29,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Insert build here    
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.x.x
+          
+      - name: Cake Action
+        # You may pin to the exact commit or the version.
+        # uses: cake-build/cake-action@ada1055e59e6ae62905b178090e9636e96e54a35
+        uses: cake-build/cake-action@v1.4.0
+        with:
+          target: "Build"  
       
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
