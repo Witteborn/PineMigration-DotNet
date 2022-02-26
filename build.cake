@@ -40,7 +40,7 @@ Task("Clean")
 
 Task("Restore")
 	.Does(()=>{
-		DotNetCoreRestore(solutionFolder);
+		DotNetRestore(solutionFolder);
 });
 
 Task("Build")
@@ -48,7 +48,7 @@ Task("Build")
 	.IsDependentOn("Restore")
 	.Does(() =>
 {
-	DotNetCoreBuild(solutionFolder, new DotNetCoreBuildSettings
+	DotNetBuild(solutionFolder, new DotNetBuildSettings
 	{
 		NoRestore = true,
 		Configuration = configuration,
@@ -59,7 +59,7 @@ Task("Test")
 	.IsDependentOn("Build")
 	.Does(() =>
 {
-	DotNetCoreTest(solutionFolder, new DotNetCoreTestSettings
+	DotNetTest(solutionFolder, new DotNetTestSettings
 	{
 		NoBuild = true,
 		NoRestore = true,
@@ -73,13 +73,13 @@ Task("Publish")
 {
 		Information($"\nRuntime: {runtime}");
 
-		var settings = new DotNetCorePublishSettings
+		var settings = new DotNetPublishSettings
 		{
 			OutputDirectory = runtimeFolder,
 			Configuration = configuration,
 		};
 
-		DotNetCorePublish(solutionFolder, settings);
+		DotNetPublish(solutionFolder, settings);
 		DeleteFile($"{runtimeFolder}/{solutionName}.pdb");
 });
 
@@ -101,15 +101,6 @@ Task("PublishAndZip")
     		Force = true
 		});
 });
-
-
-Task("PublishNuget")
-	.IsDependentOn("Nuget")
-	.Does(()=>
-{
-
-});
-
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
