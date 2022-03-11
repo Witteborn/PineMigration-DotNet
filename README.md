@@ -18,7 +18,7 @@ Further acticles about this issue:
 
 
 # Installation
-This is a dotnet-tool. This project can be installed by:
+This is a dotnet-tool which is available at [nuget.org](https://www.nuget.org/packages/PineMigration/).
 
 ## As a dotnet tool
 if you dont have a manifest for tools yet
