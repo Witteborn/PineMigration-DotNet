@@ -2,7 +2,7 @@
 
 name: Main Workflow
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -24,27 +24,27 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.x.x
-          
+          dotnet-version: 7.x.x
+
       - name: Cake Action
         # You may pin to the exact commit or the version.
         # uses: cake-build/cake-action@ada1055e59e6ae62905b178090e9636e96e54a35
-        uses: cake-build/cake-action@v1.4.0
+        uses: cake-build/cake-action@v1
         with:
-          target: "Build"  
-      
+          target: "Build"
+
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
           versionSpec: '5.x'
-        
+
       - name: Determine Version
         id:   gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7

@@ -1,8 +1,4 @@
 ﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PineMigration
@@ -15,7 +11,6 @@ namespace PineMigration
 
             try
             {
-
                 //find and read package config
                 var packageConfig_content = GetPackageConfigContent();
 
@@ -61,6 +56,7 @@ namespace PineMigration
             Log.Information("File {@filename} found at {@path}", filename, path);
             return File.ReadAllText(path);
         }
+
         private static string GetCSProjectFile()
         {
             var currDir = Directory.GetCurrentDirectory();
@@ -74,6 +70,7 @@ namespace PineMigration
 
             return csproj;
         }
+
         private static string[] ConfigToReferences(string packageConfig)
         {
             const string pattern = "id=\"(.*)\"\\sversion=\"(.*)\"\\stargetFramework";
@@ -107,6 +104,5 @@ namespace PineMigration
             Log.Information("Prepares insert of new ItemGroup at line {@endIndex}", endIndex);
             return csprojContent.ToArray();
         }
-
     }
 }
