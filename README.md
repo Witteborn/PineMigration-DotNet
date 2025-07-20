@@ -29,9 +29,6 @@ followed by
 
 - dotnet tool install PineMigration
 
-## As portable executable
-Simply use the newest executable provided under [Releases](https://github.com/Witteborn/PineMigration-DotNet/releases) or checkout our master and build it yourself.
-
 # Usage
 Simply use
 - dotnet tool run PineMigration
